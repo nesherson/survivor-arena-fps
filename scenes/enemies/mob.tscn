@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr8xmhqkgx00p"]
+
+[ext_resource type="PackedScene" uid="uid://81yumie151u4" path="res://mob/bat/bat_model.tscn" id="1_jqsat"]
+[ext_resource type="Script" uid="uid://dwjljhd7xbpjj" path="res://scripts/enemies/mob.gd" id="1_pq5na"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pq5na"]
+size = Vector3(1.25739, 0.586609, 0.38269)
+
+[node name="Mob" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_pq5na")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00894165, 0.0864563, -0.00179544)
+shape = SubResource("BoxShape3D_pq5na")
+
+[node name="bat_model" parent="." instance=ExtResource("1_jqsat")]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
