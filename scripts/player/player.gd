@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var camera = $Camera
+@onready var timer = %Timer
 
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
@@ -41,5 +42,16 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 	
 	move_and_slide()
-		
 	
+	if Input.is_action_pressed("shoot") && timer.is_stopped():
+		shoot_bullet()
+		
+func shoot_bullet():
+	const BULLET = preload("res://scenes/player/bullet.tscn")
+	var new_bullet = BULLET.instantiate()
+	
+	%Marker3D.add_child(new_bullet)
+	
+	new_bullet.global_transform = %Marker3D.global_transform
+	
+	timer.start()
