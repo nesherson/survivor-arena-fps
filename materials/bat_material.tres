@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://7xxh74hiawg3" path="res://mob/bat/bat_model_bat_palette.png" id="1_xnqj6"]
 
 [resource]
+resource_local_to_scene = true
 resource_name = "bat_mat"
 cull_mode = 2
 albedo_texture = ExtResource("1_xnqj6")

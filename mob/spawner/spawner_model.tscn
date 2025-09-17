@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmnkovxugeuob"]
+
+[ext_resource type="PackedScene" uid="uid://4uhalqw0sqbo" path="res://mob/spawner/spawner_model.glb" id="1_l1cud"]
+[ext_resource type="Shader" uid="uid://cfnwyva3u4qeb" path="res://mob/spawner/spawner_halo.gdshader" id="2_bk78j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lvlhh"]
+render_priority = 0
+shader = ExtResource("2_bk78j")
+shader_parameter/color = Color(0.919657, 0.579744, 0.840889, 1)
+
+[node name="spawner_model" instance=ExtResource("1_l1cud")]
+
+[node name="halo" parent="." index="0"]
+material_override = SubResource("ShaderMaterial_lvlhh")
