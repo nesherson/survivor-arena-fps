@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://yagxroxn8o41"]
 
 [ext_resource type="Script" uid="uid://xwpbcja7ipk0" path="res://scripts/enemies/mob_spawner.gd" id="1_ippmo"]
-[ext_resource type="PackedScene" uid="uid://4uhalqw0sqbo" path="res://mob/spawner/spawner_model.glb" id="1_v7217"]
+[ext_resource type="PackedScene" uid="uid://bmnkovxugeuob" path="res://mob/spawner/spawner_model.tscn" id="2_ippmo"]
 
 [node name="MobSpawner" type="Node3D"]
 script = ExtResource("1_ippmo")
 
-[node name="spawner_model" parent="." instance=ExtResource("1_v7217")]
+[node name="spawner_model" parent="." instance=ExtResource("2_ippmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
