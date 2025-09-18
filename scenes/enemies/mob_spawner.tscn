@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://yagxroxn8o41"]
+
+[ext_resource type="Script" uid="uid://xwpbcja7ipk0" path="res://scripts/enemies/mob_spawner.gd" id="1_ippmo"]
+[ext_resource type="PackedScene" uid="uid://bmnkovxugeuob" path="res://mob/spawner/spawner_model.tscn" id="2_ippmo"]
+
+[node name="MobSpawner" type="Node3D"]
+script = ExtResource("1_ippmo")
+
+[node name="spawner_model" parent="." instance=ExtResource("2_ippmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Marker3D" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
