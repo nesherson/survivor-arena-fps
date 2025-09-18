@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c15h5w7s662co"]
+[gd_scene load_steps=9 format=3 uid="uid://c15h5w7s662co"]
 
+[ext_resource type="Script" uid="uid://cc4gmgarxkuea" path="res://scripts/game/game.gd" id="1_5i0tg"]
 [ext_resource type="PackedScene" uid="uid://c6eftswfesm4c" path="res://scenes/player/player.tscn" id="1_sul5r"]
 [ext_resource type="Material" uid="uid://r2cc6tfu230g" path="res://materials/platform.tres" id="2_0sr1o"]
 [ext_resource type="Material" uid="uid://c5j0gij8mtd7e" path="res://materials/bridge.tres" id="3_0sr1o"]
@@ -20,7 +21,11 @@ fog_density = 0.02
 fog_height = 1.0
 fog_height_density = 0.25
 
+[sub_resource type="LabelSettings" id="LabelSettings_lfrn8"]
+font_size = 42
+
 [node name="Game" type="Node3D"]
+script = ExtResource("1_5i0tg")
 
 [node name="Player" parent="." instance=ExtResource("1_sul5r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
@@ -161,3 +166,14 @@ material = ExtResource("3_0sr1o")
 [node name="MobSpawner" parent="." instance=ExtResource("5_lfrn8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 mob_to_spawn = ExtResource("4_kelw5")
+
+[node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 19.0
+offset_top = 6.0
+offset_right = 177.0
+offset_bottom = 64.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_lfrn8")
+
+[connection signal="mob_spawned" from="MobSpawner" to="." method="_on_mob_spawner_mob_spawned"]

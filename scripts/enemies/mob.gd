@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+signal died
+
 @onready var bat_model = %bat_model
 @onready var player = get_node("/root/Game/Player")
 @onready var timer = $Timer
@@ -32,6 +34,7 @@ func take_damage() -> void:
 		
 		apply_central_impulse(direction * 5.0 + random_upward_force)
 		timer.start()
+		died.emit()
 
 
 func _on_timer_timeout() -> void:

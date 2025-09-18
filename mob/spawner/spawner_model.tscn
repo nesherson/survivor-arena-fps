@@ -27,6 +27,21 @@ metallic = 0.75
 metallic_specular = 0.45
 roughness = 0.4
 
+[sub_resource type="Animation" id="Animation_lvlhh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -6.28319, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_bk78j"]
 resource_name = "rotor_spin"
 loop_mode = 1
@@ -41,21 +56,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -6.28319, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_lvlhh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Top:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -6.28319, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p6j4b"]
@@ -75,7 +75,7 @@ surface_material_override/1 = ExtResource("3_bk78j")
 surface_material_override/2 = SubResource("StandardMaterial3D_p6j4b")
 
 [node name="Top" parent="." index="2"]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.783957, 0)
+transform = Transform3D(1, 0, -4.46638e-06, 0, 1, 0, 4.46638e-06, 0, 1, 0, 0.783957, 0)
 material_override = SubResource("StandardMaterial3D_bk78j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]

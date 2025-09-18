@@ -1,5 +1,7 @@
 extends Node3D
 
+signal mob_spawned(mob: RigidBody3D)
+
 @export var mob_to_spawn: PackedScene = null
 
 @onready var marker = %Marker3D
@@ -12,3 +14,5 @@ func _on_timer_timeout() -> void:
 	add_child(new_mob) 
 	
 	new_mob.global_position = marker.global_position
+	
+	mob_spawned.emit(new_mob)
