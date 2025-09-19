@@ -5,12 +5,14 @@ signal died
 @onready var bat_model = %bat_model
 @onready var player = get_node("/root/Game/Player")
 @onready var timer = $Timer
+@onready var hurt_sound: AudioStreamPlayer3D = $HurtSound
+@onready var death_sound: AudioStreamPlayer3D = $DeathSound
 
 const SPEED := 2.5
 
 var health := 3
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction_to_player := global_position.direction_to(player.global_position)
 	
 	direction_to_player.y = 0.0
@@ -22,7 +24,7 @@ func take_damage() -> void:
 		return
 		
 	bat_model.hurt()
-	
+	hurt_sound.play()
 	health -= 1
 	
 	if health == 0:
@@ -34,6 +36,9 @@ func take_damage() -> void:
 		
 		apply_central_impulse(direction * 5.0 + random_upward_force)
 		timer.start()
+		died.emit()
+		death_sound.play()
+
 
 func _on_timer_timeout() -> void:
 	queue_free()

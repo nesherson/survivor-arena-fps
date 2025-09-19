@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var camera = $Camera
 @onready var timer = %Timer
+@onready var shoot_sound = %ShootSound
 
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
@@ -55,3 +56,4 @@ func shoot_bullet():
 	new_bullet.global_transform = %Marker3D.global_transform
 	
 	timer.start()
+	shoot_sound.play()

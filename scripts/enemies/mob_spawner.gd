@@ -17,5 +17,5 @@ func _on_timer_timeout() -> void:
 	add_child(new_mob) 
 	
 	new_mob.global_position = marker.global_position
-	
+		
 	mob_spawned.emit(new_mob)
