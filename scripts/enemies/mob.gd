@@ -34,8 +34,8 @@ func take_damage() -> void:
 		
 		apply_central_impulse(direction * 5.0 + random_upward_force)
 		timer.start()
-		died.emit()
-
 
 func _on_timer_timeout() -> void:
 	queue_free()
+	died.emit()
+	
