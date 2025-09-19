@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr8xmhqkgx00p"]
+[gd_scene load_steps=6 format=3 uid="uid://dr8xmhqkgx00p"]
 
 [ext_resource type="PackedScene" uid="uid://81yumie151u4" path="res://mob/bat/bat_model.tscn" id="1_jqsat"]
 [ext_resource type="Script" uid="uid://dwjljhd7xbpjj" path="res://scripts/enemies/mob.gd" id="1_pq5na"]
+[ext_resource type="AudioStream" uid="uid://mwan5pak4lte" path="res://mob/mob_take_damage.wav" id="3_hf0l5"]
+[ext_resource type="AudioStream" uid="uid://dldc11ch66gsi" path="res://mob/mob_ko.wav" id="4_bgk1n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pq5na"]
 size = Vector3(1.25739, 0.586609, 0.38269)
@@ -21,5 +23,11 @@ unique_name_in_owner = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="HurtSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_hf0l5")
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_bgk1n")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
