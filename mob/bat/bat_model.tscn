@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://81yumie151u4"]
+[gd_scene load_steps=18 format=3 uid="uid://81yumie151u4"]
 
 [ext_resource type="PackedScene" uid="uid://1bhxwh6bjuaj" path="res://mob/bat/bat_model.glb" id="1_1he7g"]
 [ext_resource type="Material" uid="uid://dle201d4o3mx6" path="res://materials/bat_material.tres" id="2_030dj"]
@@ -126,6 +126,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2h6wp"]
 _data = {
@@ -160,13 +172,35 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0.0784314, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_scfiv"]
+resource_name = "shrink"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0.01, 0.01, 0.01)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_scfiv"]
 _data = {
-&"hurt": SubResource("Animation_shx3p")
+&"hurt": SubResource("Animation_shx3p"),
+&"shrink": SubResource("Animation_scfiv")
 }
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_vgr6s"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_030dj"]
 animation = &"custom/hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_shx3p"]
+animation = &"Idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vgr6s"]
 animation = &"Idle"
@@ -174,33 +208,47 @@ animation = &"Idle"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_shx3p"]
 mix_mode = 1
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_scfiv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qf8hm"]
+animation = &"custom/shrink"
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_030dj"]
-graph_offset = Vector2(-531, 19)
+graph_offset = Vector2(-747.875, -90.8068)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_vgr6s")
+nodes/Blend2/position = Vector2(304.233, 71.7766)
 nodes/Hurt/node = SubResource("AnimationNodeAnimation_030dj")
-nodes/Hurt/position = Vector2(-380, 240)
+nodes/Hurt/position = Vector2(-380, 100)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_vgr6s")
-nodes/Idle/position = Vector2(-380, 60)
-nodes/OneShot/node = SubResource("AnimationNodeOneShot_shx3p")
-nodes/OneShot/position = Vector2(-40, 60)
-node_connections = [&"OneShot", 0, &"Idle", &"OneShot", 1, &"Hurt", &"output", 0, &"OneShot"]
+nodes/Idle/position = Vector2(-380, -80)
+"nodes/Idle 2/node" = SubResource("AnimationNodeAnimation_shx3p")
+"nodes/Idle 2/position" = Vector2(-380, 300)
+nodes/IdleHurt/node = SubResource("AnimationNodeOneShot_shx3p")
+nodes/IdleHurt/position = Vector2(-40, -80)
+nodes/IdleShrink/node = SubResource("AnimationNodeOneShot_scfiv")
+nodes/IdleShrink/position = Vector2(-120, 300)
+nodes/Shrink/node = SubResource("AnimationNodeAnimation_qf8hm")
+nodes/Shrink/position = Vector2(-380, 480)
+nodes/output/position = Vector2(680, 160)
+node_connections = [&"Blend2", 0, &"IdleHurt", &"Blend2", 1, &"IdleShrink", &"IdleHurt", 0, &"Idle", &"IdleHurt", 1, &"Hurt", &"IdleShrink", 0, &"Idle 2", &"IdleShrink", 1, &"Shrink", &"output", 0, &"Blend2"]
 
 [node name="bat_model" instance=ExtResource("1_1he7g")]
 script = ExtResource("2_vgr6s")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(0, -0.0074, 0)
-bones/1/rotation = Quaternion(-0.0286549, 0.188485, -0.686718, 0.701478)
-bones/2/rotation = Quaternion(-0.0560155, -0.016041, 0.274838, 0.959723)
-bones/3/rotation = Quaternion(0.0412136, 0.059985, 0.264753, 0.961566)
-bones/4/rotation = Quaternion(-0.0286549, -0.188485, 0.686718, 0.701478)
-bones/5/rotation = Quaternion(-0.0560155, 0.016041, -0.274838, 0.959723)
-bones/6/rotation = Quaternion(0.0412136, -0.059985, -0.264753, 0.961566)
+bones/0/position = Vector3(0, 0.0123449, 0)
+bones/1/rotation = Quaternion(0.0673593, 0.0937215, -0.683365, 0.720896)
+bones/2/rotation = Quaternion(0.0914249, 0.0327311, 0.332804, 0.937983)
+bones/3/rotation = Quaternion(0.154855, 0.103753, 0.320134, 0.928854)
+bones/4/rotation = Quaternion(0.0673593, -0.0937215, 0.683365, 0.720896)
+bones/5/rotation = Quaternion(0.0914249, -0.0327311, -0.332804, 0.937983)
+bones/6/rotation = Quaternion(0.154855, -0.103753, -0.320134, 0.928854)
 bones/7/position = Vector3(0.130992, -0.227392, -0.0878515)
 bones/7/rotation = Quaternion(0.261968, 0.0834552, 0.265751, 0.924005)
-bones/8/rotation = Quaternion(3.84334e-08, 0.690882, 0.722967, 1.64515e-08)
+bones/8/rotation = Quaternion(3.8577e-08, 0.702774, 0.711413, 2.282e-08)
 bones/10/position = Vector3(-0.130992, -0.227392, -0.0878515)
 bones/10/rotation = Quaternion(0.261968, -0.0834552, -0.265751, 0.924005)
-bones/11/rotation = Quaternion(2.54238e-08, 0.690882, 0.722967, 3.63776e-08)
+bones/11/rotation = Quaternion(2.12151e-08, 0.702774, 0.711413, 3.50931e-08)
 
 [node name="bat" parent="Armature/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("2_030dj")
@@ -216,6 +264,10 @@ unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeBlendTree_030dj")
 anim_player = NodePath("../AnimationPlayer")
-parameters/OneShot/active = false
-parameters/OneShot/internal_active = false
-parameters/OneShot/request = 0
+parameters/Blend2/blend_amount = 0.00738733
+parameters/IdleHurt/active = false
+parameters/IdleHurt/internal_active = 1.33333
+parameters/IdleHurt/request = 0.0
+parameters/IdleShrink/active = 0.0
+parameters/IdleShrink/internal_active = 0.0
+parameters/IdleShrink/request = 0.0

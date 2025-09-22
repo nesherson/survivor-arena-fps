@@ -144,12 +144,11 @@ material = ExtResource("3_0sr1o")
 [node name="MobSpawner" parent="." instance=ExtResource("5_lfrn8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
 mob_to_spawn = ExtResource("4_kelw5")
-spawn_wait_time = 5.0
 
 [node name="MobSpawner2" parent="." instance=ExtResource("5_lfrn8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 29)
 mob_to_spawn = ExtResource("4_kelw5")
-spawn_wait_time = 3.5
+spawn_wait_time = 2.5
 
 [node name="ScoreLabel" type="Label" parent="."]
 unique_name_in_owner = true

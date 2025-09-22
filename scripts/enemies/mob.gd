@@ -35,6 +35,7 @@ func take_damage() -> void:
 		var random_upward_force = Vector3.UP * randf_range(1.0, 5.0)
 		
 		apply_central_impulse(direction * 5.0 + random_upward_force)
+		bat_model.death()
 		timer.start()
 		died.emit()
 		death_sound.play()
