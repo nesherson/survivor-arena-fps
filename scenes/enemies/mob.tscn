@@ -9,7 +9,6 @@
 size = Vector3(1.25739, 0.586609, 0.38269)
 
 [node name="Mob" type="RigidBody3D"]
-collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource("1_pq5na")
 
