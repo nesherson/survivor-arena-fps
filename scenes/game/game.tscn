@@ -33,6 +33,7 @@ font_size = 32
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5i0tg"]
 
 [node name="Game" type="Node3D"]
+process_mode = 3
 script = ExtResource("1_5i0tg")
 game_time_limit = 3
 

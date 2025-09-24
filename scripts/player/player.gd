@@ -13,7 +13,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion:		
 		rotation_degrees.y -= event.relative.x * y_rotation_sensitivity
 		camera.rotation_degrees.x = clamp(
 			camera.rotation_degrees.x - event.relative.y * x_rotation_sensitivity,

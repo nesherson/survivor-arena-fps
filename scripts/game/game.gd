@@ -9,6 +9,7 @@ extends Node3D
 @onready var game_won_label = %GameWonLabel
 
 var score := 0
+var is_game_won := false
 
 func increase_score():
 	score += 1
@@ -22,9 +23,17 @@ func show_smoke_puff(mob_global_position: Vector3):
 	
 	smoke_puff.global_position = mob_global_position
 	
-func show_win_overlay():
-	game_over_overlay.visible = true
-	game_won_label.visible = true
+func show_win_overlay(show: bool):
+	game_over_overlay.visible = show
+	game_won_label.visible = show
+	
+func reset_game():
+	get_tree().paused = false
+	is_game_won = false
+	score = 0
+		
+	show_win_overlay(false)
+	game_timeout_timer.start(game_timeout_timer.wait_time)
 	
 func _ready() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
@@ -41,9 +50,17 @@ func _on_kill_plane_body_entered(body: Node3D) -> void:
 func _on_game_timeout_timer_timeout() -> void:
 	if game_time_limit == 0:
 		get_tree().paused = true
+		get_viewport().set_input_as_handled()
+		is_game_won = true
+		
 		game_timeout_timer.stop()
-		show_win_overlay()
+		show_win_overlay(true)
 		return
 		
 	game_time_limit -= 1
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton && is_game_won == true:
+		reset_game()
+		
