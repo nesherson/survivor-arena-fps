@@ -6,7 +6,7 @@ A simple 3D survivor FPS game built in Godot 4. This project was created as a ha
 
 This game was built by following the "Make a Game with me (in Godot 4)" full course for beginners by the amazing team at GDQuest. It served as an excellent introduction to key concepts in Godot.
 - Engine: Godot 4.2
-- Tutorial: (Make a Game with me (in Godot 4) | Full Course for Beginners)[https://www.youtube.com/watch?v=NJJNWGD25rg&t=2026s]
+- Tutorial: [Make a Game with me (in Godot 4) | Full Course for Beginners](https://www.youtube.com/watch?v=NJJNWGD25rg&t=2026s)
 
 ## What I Learned
 
