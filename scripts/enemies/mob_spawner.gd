@@ -1,5 +1,7 @@
 extends Node3D
 
+@onready var spawner_model: Node3D = $spawner_model
+
 signal mob_spawned(mob: RigidBody3D)
 
 @export var mob_to_spawn: PackedScene = null
@@ -19,3 +21,6 @@ func _on_timer_timeout() -> void:
 	new_mob.global_position = marker.global_position
 		
 	mob_spawned.emit(new_mob)
+
+func _on_game_over() -> void:
+	spawner_model.get_node("AnimationPlayer").stop()

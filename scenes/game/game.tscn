@@ -38,6 +38,7 @@ script = ExtResource("1_5i0tg")
 game_time_limit = 3
 
 [node name="Player" parent="." instance=ExtResource("1_sul5r")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -221,6 +222,9 @@ use_collision = true
 size = Vector3(1.5, 1, 3)
 material = ExtResource("3_0sr1o")
 
+[connection signal="game_over" from="." to="." method="_on_game_over"]
+[connection signal="game_over" from="." to="Player" method="_on_game_over"]
+[connection signal="game_over" from="." to="MobSpawner" method="_on_game_over"]
 [connection signal="mob_spawned" from="MobSpawner" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner2" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="timeout" from="GameTimeoutTimer" to="." method="_on_game_timeout_timer_timeout"]
