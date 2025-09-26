@@ -1,6 +1,7 @@
 extends Node3D
 
-@onready var animation_tree = %AnimationTree
+@onready var animation_tree: AnimationTree = %AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func hurt():
 	animation_tree.set("parameters/Blend2/blend_amount", 0.0)

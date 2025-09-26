@@ -1,3 +1,5 @@
+class_name Mob
+
 extends RigidBody3D
 
 signal died

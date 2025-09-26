@@ -29,6 +29,10 @@ func show_smoke_puff(mob_global_position: Vector3):
 func show_win_overlay(show: bool):
 	game_over_overlay.visible = show
 	game_won_label.visible = show
+	
+func reset_game():
+	get_tree().reload_current_scene.call_deferred()
+	get_tree().paused = false
 		
 func _ready() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
@@ -57,11 +61,6 @@ func _on_game_timeout_timer_timeout() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reset_game"):
-		get_tree().reload_current_scene.call_deferred()
-
-func _on_game_over() -> void:
-	var spawned_mobs = get_children().filter(func(element): print(element.name))
-	
-	print(spawned_mobs)
-	
+	if event.is_action_pressed("reset_game") && is_game_won:
+		reset_game()
+		

@@ -22,5 +22,8 @@ func _on_timer_timeout() -> void:
 		
 	mob_spawned.emit(new_mob)
 
-func _on_game_over() -> void:
+func _on_game_over() -> void:	
+	timer.stop()
 	spawner_model.get_node("AnimationPlayer").stop()
+	
+	
