@@ -1,3 +1,5 @@
+class_name Mob
+
 extends RigidBody3D
 
 signal died
@@ -11,13 +13,6 @@ signal died
 const SPEED := 2.5
 
 var health := 3
-
-func _physics_process(_delta: float) -> void:
-	var direction_to_player := global_position.direction_to(player.global_position)
-	
-	direction_to_player.y = 0.0
-	linear_velocity = direction_to_player * SPEED
-	bat_model.rotation.y = Vector3.FORWARD.signed_angle_to(direction_to_player, Vector3.UP) + PI
 
 func take_damage() -> void:
 	if health == 0:
@@ -40,6 +35,12 @@ func take_damage() -> void:
 		died.emit()
 		death_sound.play()
 
+func _physics_process(_delta: float) -> void:
+	var direction_to_player := global_position.direction_to(player.global_position)
+	
+	direction_to_player.y = 0.0
+	linear_velocity = direction_to_player * SPEED
+	bat_model.rotation.y = Vector3.FORWARD.signed_angle_to(direction_to_player, Vector3.UP) + PI
 
 func _on_timer_timeout() -> void:
 	queue_free()

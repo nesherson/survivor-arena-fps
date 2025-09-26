@@ -2,13 +2,17 @@ extends Node3D
 
 @export var game_time_limit: int
 
-@onready var score_label = %ScoreLabel
-@onready var game_timeout_label = %GameTimeoutLabel
-@onready var game_timeout_timer = %GameTimeoutTimer
-@onready var game_over_overlay = %GameOverOverlay
-@onready var game_won_label = %GameWonLabel
+@onready var score_label: Label = %ScoreLabel
+@onready var game_timeout_label: Label = %GameTimeoutLabel
+@onready var game_timeout_timer: Timer = %GameTimeoutTimer
+@onready var game_over_overlay: ColorRect = %GameOverOverlay
+@onready var game_won_label: Label = %GameWonLabel
+@onready var player: CharacterBody3D = %Player
+
+signal game_over
 
 var score := 0
+var is_game_won := false
 
 func increase_score():
 	score += 1
@@ -22,10 +26,14 @@ func show_smoke_puff(mob_global_position: Vector3):
 	
 	smoke_puff.global_position = mob_global_position
 	
-func show_win_overlay():
-	game_over_overlay.visible = true
-	game_won_label.visible = true
+func show_win_overlay(show: bool):
+	game_over_overlay.visible = show
+	game_won_label.visible = show
 	
+func reset_game():
+	get_tree().reload_current_scene.call_deferred()
+	get_tree().paused = false
+		
 func _ready() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
 	
@@ -41,9 +49,18 @@ func _on_kill_plane_body_entered(body: Node3D) -> void:
 func _on_game_timeout_timer_timeout() -> void:
 	if game_time_limit == 0:
 		get_tree().paused = true
+		get_viewport().set_input_as_handled()
+		is_game_won = true
+		game_over.emit()
+		
 		game_timeout_timer.stop()
-		show_win_overlay()
+		show_win_overlay(true)
 		return
 		
 	game_time_limit -= 1
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset_game") && is_game_won:
+		reset_game()
+		

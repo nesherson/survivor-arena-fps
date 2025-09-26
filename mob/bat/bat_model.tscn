@@ -236,19 +236,19 @@ node_connections = [&"Blend2", 0, &"IdleHurt", &"Blend2", 1, &"IdleShrink", &"Id
 script = ExtResource("2_vgr6s")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(0, 0.0123449, 0)
-bones/1/rotation = Quaternion(0.0673593, 0.0937215, -0.683365, 0.720896)
-bones/2/rotation = Quaternion(0.0914249, 0.0327311, 0.332804, 0.937983)
-bones/3/rotation = Quaternion(0.154855, 0.103753, 0.320134, 0.928854)
-bones/4/rotation = Quaternion(0.0673593, -0.0937215, 0.683365, 0.720896)
-bones/5/rotation = Quaternion(0.0914249, -0.0327311, -0.332804, 0.937983)
-bones/6/rotation = Quaternion(0.154855, -0.103753, -0.320134, 0.928854)
+bones/0/position = Vector3(0, -0.0188126, 0)
+bones/1/rotation = Quaternion(-0.059239, 0.214254, -0.668257, 0.709943)
+bones/2/rotation = Quaternion(-0.142654, -0.0381641, 0.255812, 0.955381)
+bones/3/rotation = Quaternion(-0.0633317, 0.0329338, 0.231101, 0.970307)
+bones/4/rotation = Quaternion(-0.059239, -0.214254, 0.668257, 0.709943)
+bones/5/rotation = Quaternion(-0.142654, 0.0381641, -0.255812, 0.955381)
+bones/6/rotation = Quaternion(-0.0633317, -0.0329338, -0.231101, 0.970307)
 bones/7/position = Vector3(0.130992, -0.227392, -0.0878515)
 bones/7/rotation = Quaternion(0.261968, 0.0834552, 0.265751, 0.924005)
-bones/8/rotation = Quaternion(3.8577e-08, 0.702774, 0.711413, 2.282e-08)
+bones/8/rotation = Quaternion(3.9352e-08, 0.654738, 0.755856, 2.45832e-08)
 bones/10/position = Vector3(-0.130992, -0.227392, -0.0878515)
 bones/10/rotation = Quaternion(0.261968, -0.0834552, -0.265751, 0.924005)
-bones/11/rotation = Quaternion(2.12151e-08, 0.702774, 0.711413, 3.50931e-08)
+bones/11/rotation = Quaternion(2.43099e-08, 0.654738, 0.755856, 3.50917e-08)
 
 [node name="bat" parent="Armature/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("2_030dj")
@@ -267,7 +267,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/Blend2/blend_amount = 0.00738733
 parameters/IdleHurt/active = false
 parameters/IdleHurt/internal_active = 1.33333
-parameters/IdleHurt/request = 0.0
+parameters/IdleHurt/request = 0
 parameters/IdleShrink/active = 0.0
 parameters/IdleShrink/internal_active = 0.0
-parameters/IdleShrink/request = 0.0
+parameters/IdleShrink/request = 0

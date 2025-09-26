@@ -33,10 +33,12 @@ font_size = 32
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5i0tg"]
 
 [node name="Game" type="Node3D"]
+process_mode = 3
 script = ExtResource("1_5i0tg")
-game_time_limit = 3
+game_time_limit = 10
 
 [node name="Player" parent="." instance=ExtResource("1_sul5r")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -51,9 +53,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
 mob_to_spawn = ExtResource("4_kelw5")
 
 [node name="MobSpawner2" parent="." instance=ExtResource("5_lfrn8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 29)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.2)
 mob_to_spawn = ExtResource("4_kelw5")
-spawn_wait_time = 2.5
 
 [node name="ScoreLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -220,6 +221,9 @@ use_collision = true
 size = Vector3(1.5, 1, 3)
 material = ExtResource("3_0sr1o")
 
+[connection signal="game_over" from="." to="Player" method="_on_game_over"]
+[connection signal="game_over" from="." to="MobSpawner" method="_on_game_over"]
+[connection signal="game_over" from="." to="MobSpawner2" method="_on_game_over"]
 [connection signal="mob_spawned" from="MobSpawner" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner2" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="timeout" from="GameTimeoutTimer" to="." method="_on_game_timeout_timer_timeout"]
