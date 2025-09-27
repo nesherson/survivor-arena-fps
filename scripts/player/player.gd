@@ -3,11 +3,14 @@ extends CharacterBody3D
 @onready var camera = $Camera
 @onready var timer = %Timer
 @onready var shoot_sound = %ShootSound
+@onready var health_bar: ProgressBar = %HealthBar
 
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
 const x_rotation_min_limit = -80
 const x_rotation_max_limit = 80
+
+var health: int = 100
 
 func shoot_bullet():
 	const BULLET = preload("res://scenes/player/bullet.tscn")
@@ -16,12 +19,15 @@ func shoot_bullet():
 	%Marker3D.add_child(new_bullet)
 	
 	new_bullet.global_transform = %Marker3D.global_transform
+	health -= 1
+	health_bar.value = health
 	
 	timer.start()
 	shoot_sound.play()
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:		
