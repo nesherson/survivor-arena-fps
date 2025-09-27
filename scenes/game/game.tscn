@@ -35,7 +35,7 @@ font_size = 32
 [node name="Game" type="Node3D"]
 process_mode = 3
 script = ExtResource("1_5i0tg")
-game_time_limit = 10
+game_time_limit = 30
 
 [node name="Player" parent="." instance=ExtResource("1_sul5r")]
 unique_name_in_owner = true

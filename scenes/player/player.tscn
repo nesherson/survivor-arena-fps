@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6eftswfesm4c"]
+[gd_scene load_steps=9 format=3 uid="uid://c6eftswfesm4c"]
 
 [ext_resource type="PackedScene" uid="uid://c3jwe24smtgn2" path="res://player/simple_gun/gun_model.glb" id="1_8afob"]
 [ext_resource type="Script" uid="uid://dd8iarqoaeyjt" path="res://scripts/player/player.gd" id="1_dovo2"]
@@ -8,19 +8,31 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7p2l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvxji"]
-bg_color = Color(0.284767, 0.652618, 0.467518, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+bg_color = Color(0.132444, 0.234881, 0.126002, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.238223, 0.383566, 0.139718, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p47bc"]
+bg_color = Color(0.332642, 0.62691, 0.372827, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="LabelSettings" id="LabelSettings_lvxji"]
-font_size = 20
+font_size = 22
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 3
@@ -67,17 +79,18 @@ stream = ExtResource("4_lvxji")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = 30.0
-offset_top = 3.0
-offset_right = 142.0
-offset_bottom = 30.0
+offset_left = 45.0
+offset_top = 6.0
+offset_right = 190.0
+offset_bottom = 36.0
 theme_override_styles/background = SubResource("StyleBoxFlat_lvxji")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p47bc")
 show_percentage = false
 
 [node name="HealthBarLabel" type="Label" parent="."]
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 42.0
-offset_bottom = 32.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 48.0
+offset_bottom = 37.0
 text = "HP"
 label_settings = SubResource("LabelSettings_lvxji")

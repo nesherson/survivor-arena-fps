@@ -1,3 +1,5 @@
+class_name Player
+
 extends CharacterBody3D
 
 @onready var camera = $Camera
@@ -19,15 +21,20 @@ func shoot_bullet():
 	%Marker3D.add_child(new_bullet)
 	
 	new_bullet.global_transform = %Marker3D.global_transform
-	health -= 1
-	health_bar.value = health
 	
 	timer.start()
 	shoot_sound.play()
+	
+func take_damage():
+	if health == 0:
+		pass
+	
+	health -= 2
+	health_bar.value = health
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+	health_bar.value = health
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:		
