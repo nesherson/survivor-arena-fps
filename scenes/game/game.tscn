@@ -224,6 +224,7 @@ material = ExtResource("3_0sr1o")
 [connection signal="game_over" from="." to="Player" method="_on_game_over"]
 [connection signal="game_over" from="." to="MobSpawner" method="_on_game_over"]
 [connection signal="game_over" from="." to="MobSpawner2" method="_on_game_over"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="mob_spawned" from="MobSpawner" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner2" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="timeout" from="GameTimeoutTimer" to="." method="_on_game_timeout_timer_timeout"]

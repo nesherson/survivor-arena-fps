@@ -7,6 +7,8 @@ extends CharacterBody3D
 @onready var shoot_sound = %ShootSound
 @onready var health_bar: ProgressBar = %HealthBar
 
+signal died
+
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
 const x_rotation_min_limit = -80
@@ -27,7 +29,9 @@ func shoot_bullet():
 	
 func take_damage():
 	if health == 0:
-		pass
+		died.emit()
+		
+		return
 	
 	health -= 2
 	health_bar.value = health

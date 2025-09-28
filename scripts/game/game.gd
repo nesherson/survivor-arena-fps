@@ -64,3 +64,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_game") && is_game_won:
 		reset_game()
 		
+func _on_player_died() -> void:
+	get_tree().reload_current_scene.call_deferred()

@@ -1,14 +1,13 @@
 extends Node3D
 
-@onready var spawner_model: Node3D = $spawner_model
-
-signal mob_spawned(mob: RigidBody3D)
-
 @export var mob_to_spawn: PackedScene = null
 @export var spawn_wait_time: float = 3.0
 
 @onready var marker = %Marker3D
 @onready var timer = %Timer
+@onready var spawner_model: Node3D = $spawner_model
+
+signal mob_spawned(mob: RigidBody3D)
 
 func _ready() -> void:
 	timer.start(spawn_wait_time)
