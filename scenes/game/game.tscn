@@ -95,7 +95,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 color = Color(0.288518, 0.288518, 0.288518, 0.196078)
 
-[node name="GameWonLabel" type="Label" parent="CanvasLayer"]
+[node name="GameOverLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 8
@@ -109,7 +109,7 @@ offset_right = 204.0
 offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Congratulations, you won!"
+text = "..."
 label_settings = SubResource("LabelSettings_bdhmt")
 
 [node name="KillPlane" type="Area3D" parent="."]
