@@ -5,9 +5,10 @@ extends CharacterBody3D
 @onready var camera = $Camera
 @onready var timer = %Timer
 @onready var shoot_sound = %ShootSound
-@onready var health_bar: ProgressBar = %HealthBar
 
 signal died
+signal damage_taken(health_remaining: int)
+signal player_ready(health: int)
 
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
@@ -34,11 +35,11 @@ func take_damage():
 		return
 	
 	health -= 2
-	health_bar.value = health
+	damage_taken.emit(health)
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	health_bar.value = health
+	player_ready.emit(health)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:		

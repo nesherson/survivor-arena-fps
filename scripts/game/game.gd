@@ -40,7 +40,7 @@ func reset_game():
 func _ready() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
 	
-func finish_game(game_over_state: GAME_OVER_STATE, game_over_text: String):
+func finish_game(game_over_state: GAME_OVER_STATE):
 	get_tree().paused = true
 	get_viewport().set_input_as_handled()
 	game_over.emit()
@@ -48,11 +48,10 @@ func finish_game(game_over_state: GAME_OVER_STATE, game_over_text: String):
 	is_game_over = true
 	
 	if game_over_state == GAME_OVER_STATE.WIN:
-		show_game_over_screen(game_over_text)
+		show_game_over_screen("Congratulations, you won! \nYour score was " + str(score))
 	else: 
-		show_game_over_screen(game_over_text)
+		show_game_over_screen("You lost! \nYour score was " + str(score))
 		
-	
 func _on_mob_spawner_mob_spawned(mob: RigidBody3D) -> void:
 	mob.died.connect(func on_mob_death():
 		increase_score()
@@ -60,11 +59,11 @@ func _on_mob_spawner_mob_spawned(mob: RigidBody3D) -> void:
 		)
 	
 func _on_kill_plane_body_entered(body: Node3D) -> void:
-	finish_game(GAME_OVER_STATE.LOSE, "You lost! \n Your score was " + str(score))
+	finish_game(GAME_OVER_STATE.LOSE)
 
 func _on_game_timeout_timer_timeout() -> void:
 	if game_time_limit == 0:
-		finish_game(GAME_OVER_STATE.WIN, "Congratulations, you won! \n Your score was " + str(score))
+		finish_game(GAME_OVER_STATE.WIN)
 		
 		return
 		
@@ -76,4 +75,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		reset_game()
 		
 func _on_player_died() -> void:
-	finish_game(GAME_OVER_STATE.LOSE, "You lost! \n Your score was " + str(score))
+	finish_game(GAME_OVER_STATE.LOSE)
