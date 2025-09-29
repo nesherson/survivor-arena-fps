@@ -45,4 +45,7 @@ func _physics_process(_delta: float) -> void:
 func _on_timer_timeout() -> void:
 	queue_free()
 	died.emit()
-	
+
+func _on_body_entered(body: Node) -> void:
+	if body is Player:
+		body.take_damage()

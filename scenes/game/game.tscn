@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c15h5w7s662co"]
+[gd_scene load_steps=13 format=3 uid="uid://c15h5w7s662co"]
 
 [ext_resource type="Script" uid="uid://cc4gmgarxkuea" path="res://scripts/game/game.gd" id="1_5i0tg"]
 [ext_resource type="PackedScene" uid="uid://c6eftswfesm4c" path="res://scenes/player/player.tscn" id="1_sul5r"]
 [ext_resource type="Material" uid="uid://r2cc6tfu230g" path="res://materials/platform.tres" id="2_0sr1o"]
 [ext_resource type="Material" uid="uid://c5j0gij8mtd7e" path="res://materials/bridge.tres" id="3_0sr1o"]
+[ext_resource type="PackedScene" uid="uid://csgr2gnnihnkw" path="res://scenes/player/player_health_bar.tscn" id="3_bdhmt"]
 [ext_resource type="PackedScene" uid="uid://dr8xmhqkgx00p" path="res://scenes/enemies/mob.tscn" id="4_kelw5"]
 [ext_resource type="PackedScene" uid="uid://yagxroxn8o41" path="res://scenes/enemies/mob_spawner.tscn" id="5_lfrn8"]
 
@@ -35,11 +36,13 @@ font_size = 32
 [node name="Game" type="Node3D"]
 process_mode = 3
 script = ExtResource("1_5i0tg")
-game_time_limit = 10
+game_time_limit = 30
 
 [node name="Player" parent="." instance=ExtResource("1_sul5r")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="PlayerHealthBar" parent="." instance=ExtResource("3_bdhmt")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 3)
@@ -58,10 +61,10 @@ mob_to_spawn = ExtResource("4_kelw5")
 
 [node name="ScoreLabel" type="Label" parent="."]
 unique_name_in_owner = true
-offset_left = 19.0
-offset_top = 6.0
-offset_right = 177.0
-offset_bottom = 64.0
+offset_left = 9.0
+offset_top = 702.0
+offset_right = 167.0
+offset_bottom = 760.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_lfrn8")
 
@@ -95,7 +98,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 color = Color(0.288518, 0.288518, 0.288518, 0.196078)
 
-[node name="GameWonLabel" type="Label" parent="CanvasLayer"]
+[node name="GameOverLabel" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 8
@@ -109,7 +112,7 @@ offset_right = 204.0
 offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Congratulations, you won!"
+text = "..."
 label_settings = SubResource("LabelSettings_bdhmt")
 
 [node name="KillPlane" type="Area3D" parent="."]
@@ -224,6 +227,9 @@ material = ExtResource("3_0sr1o")
 [connection signal="game_over" from="." to="Player" method="_on_game_over"]
 [connection signal="game_over" from="." to="MobSpawner" method="_on_game_over"]
 [connection signal="game_over" from="." to="MobSpawner2" method="_on_game_over"]
+[connection signal="damage_taken" from="Player" to="PlayerHealthBar" method="_on_player_damage_taken"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="player_ready" from="Player" to="PlayerHealthBar" method="_on_player_ready"]
 [connection signal="mob_spawned" from="MobSpawner" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner2" to="." method="_on_mob_spawner_mob_spawned"]
 [connection signal="timeout" from="GameTimeoutTimer" to="." method="_on_game_timeout_timer_timeout"]

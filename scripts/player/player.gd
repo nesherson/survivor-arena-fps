@@ -1,13 +1,21 @@
+class_name Player
+
 extends CharacterBody3D
 
 @onready var camera = $Camera
 @onready var timer = %Timer
 @onready var shoot_sound = %ShootSound
 
+signal died
+signal damage_taken(health_remaining: int)
+signal player_ready(health: int)
+
 const y_rotation_sensitivity = 0.5
 const x_rotation_sensitivity = 0.5
 const x_rotation_min_limit = -80
 const x_rotation_max_limit = 80
+
+var health: int = 100
 
 func shoot_bullet():
 	const BULLET = preload("res://scenes/player/bullet.tscn")
@@ -19,9 +27,19 @@ func shoot_bullet():
 	
 	timer.start()
 	shoot_sound.play()
+	
+func take_damage():
+	if health == 0:
+		died.emit()
+		
+		return
+	
+	health -= 2
+	damage_taken.emit(health)
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	player_ready.emit(health)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:		

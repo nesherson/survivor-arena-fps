@@ -6,13 +6,15 @@ extends Node3D
 @onready var game_timeout_label: Label = %GameTimeoutLabel
 @onready var game_timeout_timer: Timer = %GameTimeoutTimer
 @onready var game_over_overlay: ColorRect = %GameOverOverlay
-@onready var game_won_label: Label = %GameWonLabel
+@onready var game_over_label: Label = %GameOverLabel
 @onready var player: CharacterBody3D = %Player
 
 signal game_over
 
 var score := 0
-var is_game_won := false
+var is_game_over := false
+
+enum GAME_OVER_STATE { WIN, LOSE }
 
 func increase_score():
 	score += 1
@@ -26,9 +28,10 @@ func show_smoke_puff(mob_global_position: Vector3):
 	
 	smoke_puff.global_position = mob_global_position
 	
-func show_win_overlay(show: bool):
-	game_over_overlay.visible = show
-	game_won_label.visible = show
+func show_game_over_screen(text: String):
+	game_over_overlay.visible = true
+	game_over_label.visible = true
+	game_over_label.text = text
 	
 func reset_game():
 	get_tree().reload_current_scene.call_deferred()
@@ -37,6 +40,18 @@ func reset_game():
 func _ready() -> void:
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
 	
+func finish_game(game_over_state: GAME_OVER_STATE):
+	get_tree().paused = true
+	get_viewport().set_input_as_handled()
+	game_over.emit()
+	game_timeout_timer.stop()
+	is_game_over = true
+	
+	if game_over_state == GAME_OVER_STATE.WIN:
+		show_game_over_screen("Congratulations, you won! \nYour score was " + str(score))
+	else: 
+		show_game_over_screen("You lost! \nYour score was " + str(score))
+		
 func _on_mob_spawner_mob_spawned(mob: RigidBody3D) -> void:
 	mob.died.connect(func on_mob_death():
 		increase_score()
@@ -44,23 +59,20 @@ func _on_mob_spawner_mob_spawned(mob: RigidBody3D) -> void:
 		)
 	
 func _on_kill_plane_body_entered(body: Node3D) -> void:
-	get_tree().reload_current_scene.call_deferred()
+	finish_game(GAME_OVER_STATE.LOSE)
 
 func _on_game_timeout_timer_timeout() -> void:
 	if game_time_limit == 0:
-		get_tree().paused = true
-		get_viewport().set_input_as_handled()
-		is_game_won = true
-		game_over.emit()
+		finish_game(GAME_OVER_STATE.WIN)
 		
-		game_timeout_timer.stop()
-		show_win_overlay(true)
 		return
 		
 	game_time_limit -= 1
 	game_timeout_label.text = "Time left: " + str(game_time_limit)
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reset_game") && is_game_won:
+	if event.is_action_pressed("reset_game") && is_game_over:
 		reset_game()
 		
+func _on_player_died() -> void:
+	finish_game(GAME_OVER_STATE.LOSE)

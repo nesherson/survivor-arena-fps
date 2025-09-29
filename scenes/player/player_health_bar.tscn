@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://csgr2gnnihnkw"]
+
+[ext_resource type="Script" uid="uid://47dc8fr6s6a1" path="res://scripts/player/player_health_bar.gd" id="1_l31cn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mppni"]
+bg_color = Color(0.132444, 0.234881, 0.126002, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.238223, 0.383566, 0.139718, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l31cn"]
+bg_color = Color(0.332642, 0.62691, 0.372827, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jdqd"]
+font_size = 22
+
+[node name="PlayerHealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_l31cn")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = 45.0
+offset_top = 6.0
+offset_right = 190.0
+offset_bottom = 36.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mppni")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l31cn")
+show_percentage = false
+
+[node name="HealthBarLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 48.0
+offset_bottom = 37.0
+text = "HP"
+label_settings = SubResource("LabelSettings_6jdqd")
