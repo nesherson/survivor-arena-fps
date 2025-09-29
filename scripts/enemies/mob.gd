@@ -32,7 +32,6 @@ func take_damage() -> void:
 		apply_central_impulse(direction * 5.0 + random_upward_force)
 		bat_model.death()
 		timer.start()
-		died.emit()
 		death_sound.play()
 
 func _physics_process(_delta: float) -> void:
